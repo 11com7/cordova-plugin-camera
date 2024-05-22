@@ -1274,7 +1274,12 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                 id--;
             }
             Uri uri = Uri.parse(contentStore + "/" + id);
-            this.cordova.getActivity().getContentResolver().delete(uri, null, null);
+            // dom, 2023-10-29, »Bugfix« [6852]: Ignoriere Exceptions beim Löschen, verhindert Absturz!
+            try {
+                this.cordova.getActivity().getContentResolver().delete(uri, null, null);
+            } catch (Exception e) {
+                // dom, 2023-10-29: IGNORIERE Exceptions [6852]
+            }
             cursor.close();
         }
     }
