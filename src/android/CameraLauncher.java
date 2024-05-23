@@ -242,7 +242,9 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         } else {
             // Android API 32 or lower
             permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            // dom, 2024-05-22, Bugfix [7157]: WRITE_EXTERNAL_STORAGE is always denied and not needed!
+            //permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
 
         if (!storageOnly) {
